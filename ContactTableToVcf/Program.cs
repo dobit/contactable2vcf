@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Windows.Forms.VisualStyles;
@@ -69,7 +70,7 @@ namespace ContactTableToVcf
                 {
                     var vcard = new VCard
                     {
-                        Version = VCardVersion.V4,
+                        Version = VCardVersion.V3,
                         FormattedName = contact.Name, // "John Doe",
                         //FirstName = "John",
                         //LastName = "Doe",
@@ -129,13 +130,17 @@ namespace ContactTableToVcf
                 saveFileDialog.Title = "保存到";
                 saveFileDialog.Filter = "vcf文件|*.vcf";
                 saveFileDialog.FileName = DateTime.Now.ToString("yyyy-MM-dd") + ".vcf";
+               
                 if (saveFileDialog.ShowDialog() == DialogResult.OK)
                 {
                     using (var fs = saveFileDialog.OpenFile())
                     {
-                        TextWriter textWriter = new StreamWriter(fs);
-                        textWriter.Write(cvfs);
-                        textWriter.Dispose();
+                        //会丢失信息
+                        //TextWriter textWriter = new StreamWriter(fs);
+                        //textWriter.Write(cvfs);
+                        //textWriter.Dispose();
+                        byte[] data = Encoding.GetEncoding("GB2312").GetBytes(cvfs);
+                        fs.Write(data,0,data.Length);
                     }
 
                 }
