@@ -139,7 +139,7 @@ namespace ContactTableToVcf
                         //TextWriter textWriter = new StreamWriter(fs);
                         //textWriter.Write(cvfs);
                         //textWriter.Dispose();
-                        byte[] data = Encoding.GetEncoding("GB2312").GetBytes(cvfs);
+                        byte[] data = Encoding.GetEncoding("utf-8").GetBytes(cvfs);
                         fs.Write(data,0,data.Length);
                     }
 
